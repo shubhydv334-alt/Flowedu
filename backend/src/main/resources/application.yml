@@ -41,8 +41,8 @@ flowedu:
     # Or force one: gemini | groq | openrouter | pollinations (pollinations needs no key, demos only).
     provider: ${AI_PROVIDER:auto}
     gemini-key: ${GEMINI_API_KEY:}
-    gemini-model: ${GEMINI_MODEL:gemini-2.0-flash}
+    gemini-model: ${GEMINI_MODEL:gemini-2.5-flash}
     groq-key: ${GROQ_API_KEY:}
-    groq-model: ${GROQ_MODEL:llama-3.1-8b-instant}
+    groq-model: ${GROQ_MODEL:llama-3.3-70b-versatile}
     openrouter-key: ${OPENROUTER_API_KEY:}
-    openrouter-model: ${OPENROUTER_MODEL:meta-llama/llama-3.3-70b-instruct:free}
+    openrouter-model: ${OPENROUTER_MODEL:google/gemma-3-27b-it:free}
