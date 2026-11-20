@@ -31,8 +31,9 @@ flowedu:
   jwt-minutes: 720
   cors-origin: ${CORS_ORIGIN:http://localhost:5173}
   mail-from: ${MAIL_FROM:no-reply@flowedu.local}
+  mail-fallback-to: ${MAIL_FALLBACK_TO:${MAIL_FROM:}}
   telegram-token: ${TELEGRAM_TOKEN:}
-  # Chat id that receives Telegram messages during "Send test to me"
+  # Chat id that receives Telegram messages during "Send test to me" and as fallback for all notifications
   test-telegram-chat-id: ${TEST_TELEGRAM_CHAT_ID:}
   # Date-based triggers (X days before) are evaluated on this schedule
   date-trigger-cron: ${DATE_TRIGGER_CRON:0 0 9 * * *}

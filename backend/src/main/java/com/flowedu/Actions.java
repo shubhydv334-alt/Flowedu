@@ -45,13 +45,16 @@ public final class Actions {
         private final ObjectProvider<JavaMailSender> sender;
         private final String host;
         private final String from;
+        private final String fallbackTo;
 
         public EmailAction(ObjectProvider<JavaMailSender> sender,
                            @Value("${spring.mail.host:}") String host,
-                           @Value("${flowedu.mail-from}") String from) {
+                           @Value("${flowedu.mail-from}") String from,
+                           @Value("${flowedu.mail-fallback-to:}") String fallbackTo) {
             this.sender = sender;
             this.host = host;
             this.from = from;
+            this.fallbackTo = fallbackTo;
         }
 
         @Override public String type() { return "EMAIL"; }
@@ -74,6 +77,7 @@ public final class Actions {
             out.put("subject", s(cfg.get("subject")));
             out.put("body", s(cfg.get("body")));
             if (o.dryRun()) return out;
+            if (to.isBlank() && fallbackTo != null && !fallbackTo.isBlank()) to = fallbackTo;
             if (to.isBlank()) throw new IllegalStateException("No recipient email address");
 
             JavaMailSender js = host == null || host.isBlank() ? null : sender.getIfAvailable();
