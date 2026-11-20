@@ -95,8 +95,13 @@ public final class Actions {
     @Component
     public static class TelegramAction implements Action {
         private final String token;
+        private final String fallbackChat;
 
-        public TelegramAction(@Value("${flowedu.telegram-token:}") String token) { this.token = token; }
+        public TelegramAction(@Value("${flowedu.telegram-token:}") String token,
+                              @Value("${flowedu.test-telegram-chat-id:}") String fallbackChat) {
+            this.token = token;
+            this.fallbackChat = fallbackChat;
+        }
 
         @Override public String type() { return "TELEGRAM"; }
 
@@ -121,6 +126,7 @@ public final class Actions {
                 out.put("simulated", true);
                 return out;
             }
+            if (chat.isBlank() && fallbackChat != null && !fallbackChat.isBlank()) chat = fallbackChat;
             if (chat.isBlank()) throw new IllegalStateException("No Telegram chat id for this recipient");
             try {
                 WebClient.create().post()
